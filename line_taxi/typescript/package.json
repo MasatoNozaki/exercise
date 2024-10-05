@@ -1,0 +1,14 @@
+{
+  "name": "line_taxi",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "temporal-polyfill": "^0.2.5"
+  }
+}
