@@ -30,7 +30,6 @@ export class LowSpeedTimeMeter {
             const km = record.distance / 1000;
             const hour = difference / 60 / 60;
             if (km / hour < 10) {
-
                 // 結果が負の場合。1日経った結果なのか、2日経った結果なのかが不明で経過時間が定義できないためエラー
                 if (difference < 0) {
                     throw new TimeBackError(`Time is back. result: ${difference}`);

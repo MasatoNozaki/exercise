@@ -28,3 +28,4 @@ describe('midnight', () => {
         expect(overTimeRate(time)).not.toBe(1.5);
     });
 });
+// さすがにこれはテストしなくて良さそうなのでやめた

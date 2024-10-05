@@ -6,6 +6,7 @@ const PEEK_FIRST_START = Temporal.PlainTime.from("06:00:00.000");
 const PEEK_FIRST_END = Temporal.PlainTime.from("09:29:59.999");
 const PEEK_SECOND_START = Temporal.PlainTime.from("18:00:00.000");
 const PEEK_SECOND_END = Temporal.PlainTime.from("23:59:59.999");
+
 export const overTimeRate = (time: Temporal.PlainTime): number => {
     if (isMidnight(time)) {
         return 1.5;
