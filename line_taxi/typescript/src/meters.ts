@@ -1,10 +1,12 @@
 import type { Temporal } from "temporal-polyfill";
+import { overTimeRate } from "./overTimeRate";
 
 export type record = {
     time: Temporal.PlainTime;
     distance: number;
 };
 
+// 累積なのでクラスである必要がある
 export class DistanceMeter {
     distance: number = 0;
     update = (newDistance: number) => {
@@ -12,11 +14,12 @@ export class DistanceMeter {
     };
 };
 
+// 累積なのでクラスである必要がある
 export class LowSpeedTimeMeter {
-    time: number = 0;
+    cumulativeTime: number = 0;
     private beforeTime: Temporal.PlainTime | null = null;
     update = (record: record): void => {
-        this.time += this.newLowSpeedTime(record);
+        this.cumulativeTime += this.newLowSpeedTime(record);
         this.updateBeforeRecord(record.time);
     };
     private updateBeforeRecord = (time: Temporal.PlainTime): void => {
@@ -39,6 +42,34 @@ export class LowSpeedTimeMeter {
         }
 
         return 0;
+    };
+}
+
+// その時与えられた総走行距離、総低速時間、時刻をもとに料金を計算するだけの機能
+// 時刻の順番などはこれを利用する側が担保する
+// feeが累積でなくなったため、クラスである必要がない
+export class FeeMeter {
+    fee: number = 0;
+    private firstRideDistance = 1000;
+    private firstRideFee = 400;
+    private distanceBaseFee = 40;
+    private lowSpeedTimeBaseFee = 40;
+    update = (distance: DistanceMeter['distance'], cumlativeTime: LowSpeedTimeMeter['cumulativeTime'], time: record['time']) => {
+        this.fee = this.distanceFee(distance) * overTimeRate(time) + this.lowSpeedTimeFee(cumlativeTime) * overTimeRate(time);
+    };
+    private distanceFee = (distance: DistanceMeter['distance']): number => {
+        if (distance <= this.firstRideDistance) {
+            return this.firstRideFee;
+        }
+        else if (distance < 10000) {
+            return this.firstRideFee + Math.floor((distance - this.firstRideDistance) / 400) * this.distanceBaseFee;
+        }
+        else {
+            return this.firstRideFee + Math.floor((distance - this.firstRideDistance) / 350) * this.distanceBaseFee;
+        }
+    };
+    private lowSpeedTimeFee = (cumulativeTime: LowSpeedTimeMeter['cumulativeTime']): number => {
+        return Math.floor(cumulativeTime / 45) * this.lowSpeedTimeBaseFee;
     };
 }
 
