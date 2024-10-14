@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { expect, test } from "bun:test";
 import { DistanceMeter } from "../src/distanceMeter";
 
 // distanceMeter自体は負でも小数無しでも許容する
