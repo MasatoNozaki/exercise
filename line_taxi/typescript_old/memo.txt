@@ -30,7 +30,7 @@ answer(input)
 ◯answer
 inputから1行ずつ取り出す
 validate(line)
-record = convertRecord(line)
+record = convertRecord(line) // ここで24時間以上の時間を24時間未満に変更。Temporalが24以上数字を受け付けないため。レコードの順番はvalidateで保証。
 update(record)
 
 ◯update
