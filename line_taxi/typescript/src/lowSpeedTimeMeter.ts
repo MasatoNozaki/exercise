@@ -5,7 +5,7 @@ export type elapsedRecord = {
 
 export class LowSpeedTimeMeter {
     cumulativeTime: number = 0;
-    private beforeElapsed: elapsedRecord['elapsedSecond'] | null = null;
+    private beforeElapsed: elapsedRecord['elapsedSecond'] = 0;
     update = (record: elapsedRecord): void => {
         this.cumulativeTime += this.newLowSpeedTime(record);
         this.updateBeforeRecord(record.elapsedSecond);
@@ -25,6 +25,9 @@ export class LowSpeedTimeMeter {
             if (km / hour < 10) {
                 return difference;
             }
+        }
+        else {
+
         }
 
         return 0;

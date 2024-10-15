@@ -47,4 +47,15 @@ describe('低速走行時間メーター', () => {
         lowSpeedTimeMeter.update(inputs[0]);
         expect(() => lowSpeedTimeMeter.update(inputs[1])).toThrowError(TimeBackError);
     });
+
+    test('いきなりelapsedSecondを入力しても受け入れる', () => {
+        const lowSpeedTimeMeter = new LowSpeedTimeMeter();
+        lowSpeedTimeMeter.update(
+            {
+                elapsedSecond: 60,
+                distance: 1.0
+            }
+        );
+        expect(lowSpeedTimeMeter.cumulativeTime).toBe(60);
+    });
 });
