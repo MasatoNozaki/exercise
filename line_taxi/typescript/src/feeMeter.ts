@@ -17,26 +17,37 @@ export class FeeMeter {
     private isCalculateFirstSection = false;
     private nowDistanceSection = 0;
 
+    private readonly FIRST_RIDE_DISTANCE = 1000;
+    private readonly SHORT_DISTANCE = 10200;
+    private readonly SHORT_DISTANCE_SECTION = 400;
+    private readonly LONG_DISTANCE_SECTION = 350;
+    private readonly FIRST_RIDE_FEE = 400;
+    private readonly DISTANCE_BASE_FEE = 40;
+    private readonly LOW_SPEED_TIME_BASE_FEE = 40;
+    private readonly MAX_SHORT_DISTANCE_SECTION_NUM = Math.floor((this.SHORT_DISTANCE - this.FIRST_RIDE_DISTANCE) / this.SHORT_DISTANCE_SECTION);
+
     update = (feeInfo: feeInfo) => {
         // fee += this.distanceFee(feeInfo.elapsed.distance) * overTimeRate(feeInfo.rate) + lowSpeedTimeFee(feeInfo.elapsed.elapsedSecond) * overTimeRate(feeInfo.rate);
         this.fee += this.distanceFee(feeInfo.elapsed.distance);
-        console.log(this.fee);
     };
     private distanceFee = (distance: feeInfo['elapsed']['distance']) => {
         this.distanceMeter.update(distance);
-        if (!this.isCalculateFirstSection && this.distanceMeter.distance <= 1000) {
+        // 初乗区間
+        if (!this.isCalculateFirstSection && this.distanceMeter.distance <= this.FIRST_RIDE_DISTANCE) {
             this.isCalculateFirstSection = true;
-            return 400;
+            return this.FIRST_RIDE_FEE;
         }
-        else if (1000 < this.distanceMeter.distance && this.distanceMeter.distance <= 10200) {
-            const newSection = Math.floor((this.distanceMeter.distance - 1000) / 400);
-            const distanceFee = (newSection - this.nowDistanceSection) * 40;
+        // 短距離区間
+        else if (this.FIRST_RIDE_DISTANCE < this.distanceMeter.distance && this.distanceMeter.distance <= this.SHORT_DISTANCE) {
+            const newSection = Math.floor((this.distanceMeter.distance - this.FIRST_RIDE_DISTANCE) / this.SHORT_DISTANCE_SECTION);
+            const distanceFee = (newSection - this.nowDistanceSection) * this.DISTANCE_BASE_FEE;
             this.nowDistanceSection = newSection;
             return distanceFee;
         }
-        else if (10200 < this.distanceMeter.distance) {
-            const newSection = Math.floor((this.distanceMeter.distance - 10200) / 350) + Math.floor((10200 - 1000) / 400);
-            const distanceFee = (newSection - this.nowDistanceSection) * 40;
+        // 長距離区間
+        else if (this.SHORT_DISTANCE < this.distanceMeter.distance) {
+            const newSection = Math.floor((this.distanceMeter.distance - this.SHORT_DISTANCE) / this.LONG_DISTANCE_SECTION) + this.MAX_SHORT_DISTANCE_SECTION_NUM;
+            const distanceFee = (newSection - this.nowDistanceSection) * this.DISTANCE_BASE_FEE;
             this.nowDistanceSection = newSection;
             return distanceFee;
         }
