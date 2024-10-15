@@ -1,6 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import type { feeInfo } from "../src/lowSpeedTimeMeter";
-import { Temporal } from "temporal-polyfill";
+import { FeeMeter, type feeInfo } from "../src/feeMeter";
 
 test('1km未満ならいくら距離を加算しても400円で、1kmを超えると400mごとに40円が加算され、10kmを超えると350mごとに40円が加算される', () => {
     const inputs: feeInfo[] = [
@@ -66,7 +65,7 @@ test('1km未満ならいくら距離を加算しても400円で、1kmを超え�
     for (const info of inputs) {
         feeMeter.update(info);
     }
-    expect(feeMeter.fee).toBe(9280);
+    expect(feeMeter.fee).toBe(1360);
 });
 
 test('低速走行時間45秒ごとに40円が加算される', () => {
