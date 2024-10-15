@@ -48,7 +48,7 @@ describe('正常系', () => {
                 },
             },
             {
-                rate: 'normal', // ここで10200に到達。400mごとの加算が終了。計8800円加算
+                rate: 'normal', // ここで10200に到達。400mごとの加算が終了。計880円加算
                 elapsed: {
                     elapsedSecond: 300.001,
                     distance: 8401
