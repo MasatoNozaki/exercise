@@ -17,7 +17,7 @@ export class LowSpeedTimeMeter {
         if (this.beforeElapsed != null) {
             const difference = record.elapsedSecond - this.beforeElapsed;
             if (difference < 0) {
-                throw new TimeBackError(`Time is back. result: ${difference}`);
+                throw new TimeBackError(difference);
             }
             // 時速10km以下なら
             const km = record.distance / 1000;
@@ -35,8 +35,7 @@ export class LowSpeedTimeMeter {
 }
 
 export class TimeBackError extends Error {
-    public constructor(message?: string) {
-        super(message);
-        this.name = 'TimeBackError';
+    public constructor(value?: number) {
+        super(`Time is back. result: ${value}`);
     }
 }
