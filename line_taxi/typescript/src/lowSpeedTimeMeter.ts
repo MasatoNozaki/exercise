@@ -1,3 +1,6 @@
+// 23時59分59秒999から0時に戻ると、低速走行時間メーターからすると時刻が連続しているという確証が取れない
+// レコード記録時点からの経過時間を表すelapsedRecordを定義
+// LowSpeedTimeMeterは経過レコードを扱う
 export type elapsedRecord = {
     elapsedSecond: number;
     distance: number;

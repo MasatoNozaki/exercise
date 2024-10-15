@@ -1,9 +1,6 @@
 import { DistanceMeter } from "./distanceMeter";
 import { LowSpeedTimeMeter, type elapsedRecord } from "./lowSpeedTimeMeter";
 
-// 23時59分59秒999から0時に戻ると、低速走行時間メーターからすると時刻が連続しているという確証が取れない
-// レコード記録時点からの経過時間を表すレコードをRecordに追加することで対応
-// LowSpeedTimeMeterは経過レコードを扱う
 // feeにとっては実際の時刻ではなく、現在割増がかかるかどうかが重要。timeとelapsedSecondとの辻褄の問題も出てくるので、利用しないなら使わないようにする。
 export type feeInfo = {
     rate: 'normal' | 'peekTime' | 'midnight';
