@@ -1,3 +1,9 @@
+TODO
+以下の構成にする
+distanceMeter.update
+lowSpeedTimeMeter.update
+feeMeter(distanceMeter.distance, lowSpeedTimeMeter.cumulativeTime)
+
 入力レコードから金額を計算できる
 ・距離レコードから金額を計算できる
 　　・初乗り運賃
@@ -39,10 +45,10 @@ update(record)
 ◯update
 distanceMeterUpdate(record.distance)
 lowSpeedTimeMeterUpdate(record)
-feeMeterUpdate()
+feeMeterUpdate(time, distance, lowSpeedTime)
 
 ◯feeMeterUpdate
-fee = distanceFee() * overTimeRate(record.time) + lowSppedTimeFee() * overTimeRate(record.time)
+fee = distanceFee(distance) * overTimeRate(record.time) + lowSppedTimeFee(lowSpeedTime) * overTimeRate(record.time)
 
 ◯distanceFee
 if distanceMeter.distance < 1000
