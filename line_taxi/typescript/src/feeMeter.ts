@@ -1,16 +1,25 @@
 import type { Temporal } from "temporal-polyfill";
-import { DistanceFee } from "./distanceFee";
-import { LowSpeedTimeFee } from "./lowSpeedTimeFee";
-import { overTimeRate } from "./overTimeRate";
+
+export interface IDistanceFee {
+    calculate(distance: number): number;
+}
+
+export interface ILowSpeedTimeFee {
+    calculate(distance: number): number;
+}
+
+export type TOverTimeRate = (time: Temporal.PlainTime) => number;
 
 export class FeeMeter {
     fee: number = 0;
-    private distanceFee = new DistanceFee();
-    private lowSpeedTimeFee = new LowSpeedTimeFee();
+    constructor(
+        private distanceFee: IDistanceFee,
+        private lowSpeedTimeFee: ILowSpeedTimeFee,
+        private overTimeRate: TOverTimeRate
+    ) { }
 
     update = (time: Temporal.PlainTime, distance: number, cumulativeTime: number) => {
-        this.fee += this.distanceFee.calculate(distance) * overTimeRate(time) + this.lowSpeedTimeFee.calculate(cumulativeTime) * overTimeRate(time);
-
+        this.fee += this.distanceFee.calculate(distance) * this.overTimeRate(time) + this.lowSpeedTimeFee.calculate(cumulativeTime) * this.overTimeRate(time);
     };
 }
 

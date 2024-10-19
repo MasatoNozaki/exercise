@@ -1,4 +1,5 @@
 import { Temporal } from "temporal-polyfill";
+import type { TOverTimeRate } from "./feeMeter";
 
 const MIDNIGHT_START = Temporal.PlainTime.from("00:00:00.000");
 const MIDNIGHT_END = Temporal.PlainTime.from("05:59:59.999");
@@ -7,7 +8,7 @@ const PEEK_FIRST_END = Temporal.PlainTime.from("09:29:59.999");
 const PEEK_SECOND_START = Temporal.PlainTime.from("18:00:00.000");
 const PEEK_SECOND_END = Temporal.PlainTime.from("23:59:59.999");
 
-export const overTimeRate = (time: Temporal.PlainTime): number => {
+export const overTimeRate: TOverTimeRate = (time: Temporal.PlainTime): number => {
     if (isMidnight(time)) {
         return 1.5;
     }

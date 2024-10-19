@@ -1,3 +1,5 @@
+import type { IDistanceFee } from "./feeMeter";
+
 const FIRST_RIDE_DISTANCE = 1000;
 const SHORT_DISTANCE = 10200;
 const SHORT_DISTANCE_SECTION = 400;
@@ -6,7 +8,7 @@ const FIRST_RIDE_FEE = 400;
 const DISTANCE_BASE_FEE = 40;
 const MAX_SHORT_DISTANCE_SECTION_NUM = Math.floor((SHORT_DISTANCE - FIRST_RIDE_DISTANCE) / SHORT_DISTANCE_SECTION);
 
-export class DistanceFee {
+export class DistanceFee implements IDistanceFee {
     private isCalculateFirstSection = false;
     private nowDistanceSection = 0;
 
