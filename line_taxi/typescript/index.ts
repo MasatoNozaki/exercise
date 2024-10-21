@@ -5,6 +5,7 @@ import { LowSpeedTimeMeter } from "./src/lowSpeedTimeMeter";
 import { DistanceFee } from "./src/distanceFee";
 import { LowSpeedTimeFee } from "./src/lowSpeedTimeFee";
 import { overTimeRate } from "./src/overTimeRate";
+import { validate } from "./src/validate";
 
 type Record = {
     time: Temporal.PlainTime;
@@ -21,8 +22,8 @@ const answer = (input: string) => {
     const lowSpeedTimeFee = new LowSpeedTimeFee();
     const feeMeter = new FeeMeter(distanceFee, lowSpeedTimeFee, overTimeRate); // overTimeRateまでやってるのはやりすぎ？
 
+    validate(input);
     const lines = input.split('\n');
-    validate(lines);
     for (const line of lines) {
         const record = convertRecord(line);
         update(record, distanceMeter, lowSpeedTimeMeter, feeMeter);

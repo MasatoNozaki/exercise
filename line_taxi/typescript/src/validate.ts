@@ -15,7 +15,7 @@ export const validate = (input: string): boolean => {
 };
 
 const isLine = (line: string): line is recordLine => {
-    return /^[0-9][0-9]:[0-9][0-9]:[0-9][0-9]\.[0-9][0-9][0-9] [0-9]*[0-9]\.[0-9]$/.test(line);
+    return /^[0-9][0-9]:[0-9][0-9]:[0-9][0-9]\.[0-9][0-9][0-9] (0|[1-9][0-9]?)\.[0-9]$/.test(line);
 };
 
 export class RecordFormError extends Error {

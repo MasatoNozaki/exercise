@@ -14,6 +14,7 @@ describe('レコード形式が誤っている', () => {
     });
     test('距離形式が誤っている', () => {
         expect(() => validate('10:00:00.000 12')).toThrowError(RecordFormError);
+        expect(() => validate('10:00:00.000 123.0')).toThrowError(RecordFormError);
         expect(() => validate('10:00:00.000 1.123')).toThrowError(RecordFormError);
         expect(() => validate('10:00:00.000 -1.0')).toThrowError(RecordFormError);
         expect(() => validate('10:00:00.000 a')).toThrowError(RecordFormError);
