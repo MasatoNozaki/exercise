@@ -6,11 +6,13 @@ import { extractItem } from "./util";
 
 /**
  * りんご1個は100円だが、3個で280円という割引
- * 6個だと...280*2、つまり3個単位で割引されるとする
+ * 
+ * 6個だと...280\*2、つまり3個単位で割引されるとする
+ * 
  * りんごの合計金額計算式：3で割った商*280 + 余り*単価
+ * 
  * 税あり、なしに対応するため、ここでは税金なしの処理
  * @param buyContents 
- * @param totalFunc 
  * @returns 合計金額
  */
 export function calcTotalPriceAppleThreeDiscount(buyContents: buyContents): number {

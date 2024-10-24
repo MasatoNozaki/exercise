@@ -136,6 +136,9 @@ dist
 
 .temp
 
+# Typedoc generated files
+docs/*
+
 # Docusaurus cache and generated files
 
 .docusaurus
