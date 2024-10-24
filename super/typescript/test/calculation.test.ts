@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { calcTotalPrice, calcTotalPriceWithTax, IndexOutOfRangeError, NegativeNumError } from "../src/calculation";
+import { calcTotalPrice, calcTotalPriceWithTabaccoTaxInclude, calcTotalPriceWithTax, IndexOutOfRangeError, NegativeNumError } from "../src/calculation";
 
 describe('合計金額（税金なし）の計算', () => {
     test('商品を1種類買う', () => {
@@ -97,5 +97,41 @@ describe('合計金額（税金あり）の計算', () => {
                 { id: 1, num: -1 }
             ]
         )).toThrowError(NegativeNumError);
+    });
+});
+
+describe('タバコ金額が内税である場合の合計金額', () => {
+    test('タバコを1つ買う', () => {
+        const data = [
+            { id: 6, num: 1 }
+        ];
+
+        expect(calcTotalPriceWithTabaccoTaxInclude(data, calcTotalPriceWithTax)).toBe(420);
+    });
+
+    test('異なる種類のタバコを複数買う', () => {
+        const data = [
+            { id: 6, num: 1 },
+            { id: 7, num: 3 }
+        ];
+
+        expect(calcTotalPriceWithTabaccoTaxInclude(data, calcTotalPriceWithTax)).toBe(420 + 440 * 3);
+    });
+
+    test('タバコでないもののみ買う(消費税あり)', () => {
+        const data = [
+            { id: 1, num: 2 },
+            { id: 5, num: 1 }
+        ];
+        expect(calcTotalPriceWithTabaccoTaxInclude(data, calcTotalPriceWithTax)).toBe((100 * 2 + 400) * 1.08);
+    });
+
+    test('タバコとそうでないものを買う(消費税なし)', () => {
+        const data = [
+            { id: 1, num: 2 },
+            { id: 5, num: 1 },
+            { id: 6, num: 1 }
+        ];
+        expect(calcTotalPriceWithTabaccoTaxInclude(data, calcTotalPrice)).toBe(100 * 2 + 400 + 420);
     });
 });
