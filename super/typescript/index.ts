@@ -21,6 +21,10 @@ export function calcTotalPrice(buyContents: buyContent[]): number {
     return sum;
 }
 
+export function calcTotalPriceWithTax(buyContents: buyContent[]): number {
+    return calcTotalPrice(buyContents) * 1.08;
+}
+
 export class IndexOutOfRangeError extends Error {
     constructor() {
         super('Index out of range');
