@@ -1,6 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import { calcTotalPrice, calcTotalPriceWithTabaccoTaxInclude, calcTotalPriceWithTax, IndexOutOfRangeError, NegativeNumError } from "../src/calculation";
 
+const TAX = 1.08;
+
 describe('合計金額（税金なし）の計算', () => {
     test('商品を1種類買う', () => {
         expect(calcTotalPrice(
@@ -61,13 +63,13 @@ describe('合計金額（税金あり）の計算', () => {
             [
                 { id: 1, num: 1 }
             ]
-        )).toBe(100 * 1 * 1.08);
+        )).toBe(100 * 1 * TAX);
 
         expect(calcTotalPriceWithTax(
             [
                 { id: 5, num: 3 }
             ]
-        )).toBe(400 * 3 * 1.08);
+        )).toBe(400 * 3 * TAX);
     });
 
     test('商品を2種類買う', () => {
@@ -76,7 +78,7 @@ describe('合計金額（税金あり）の計算', () => {
                 { id: 2, num: 1 },
                 { id: 6, num: 2 }
             ]
-        )).toBe((40 + 420 * 2) * 1.08);
+        )).toBe((40 + 420 * 2) * TAX);
     });
 
     test('商品を1つも買わない', () => {
@@ -123,7 +125,7 @@ describe('タバコ金額が内税である場合の合計金額', () => {
             { id: 1, num: 2 },
             { id: 5, num: 1 }
         ];
-        expect(calcTotalPriceWithTabaccoTaxInclude(data, calcTotalPriceWithTax)).toBe((100 * 2 + 400) * 1.08);
+        expect(calcTotalPriceWithTabaccoTaxInclude(data, calcTotalPriceWithTax)).toBe((100 * 2 + 400) * TAX);
     });
 
     test('タバコとそうでないものを買う(消費税なし)', () => {
