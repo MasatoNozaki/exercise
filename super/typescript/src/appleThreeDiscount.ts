@@ -1,4 +1,4 @@
-import { ITEMS } from "../items";
+import { getId, ITEMS } from "../items";
 import { calcTotalPrice } from "./simpleTotalPrice";
 import { type buyContents } from "./types";
 import { extractItem } from "./util";
@@ -13,7 +13,7 @@ import { extractItem } from "./util";
  * @returns 合計金額
  */
 export function calcTotalPriceAppleThreeDiscount(buyContents: buyContents): number {
-    const [appleBuyInfo, restBuyInfo] = extractItem([1], buyContents);
+    const [appleBuyInfo, restBuyInfo] = extractItem([getId('りんご')], buyContents);
     return Math.floor(appleBuyInfo[1] / 3) * 280 + appleBuyInfo[1] % 3 * ITEMS[1].price + calcTotalPrice(restBuyInfo);
 }
 

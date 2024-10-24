@@ -19,3 +19,13 @@ export const ITEMS: itemDB = {
     9: { name: 'お茶', price: 80 },
     10: { name: 'コーヒー', price: 100 }
 };
+
+export function getId(name: string): keyof itemDB {
+    for (const [id, itemData] of Object.entries(ITEMS)) {
+        if (itemData.name === name) {
+            return Number(id);
+        }
+    }
+
+    return -1;
+}
