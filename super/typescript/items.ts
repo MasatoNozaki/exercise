@@ -20,7 +20,7 @@ export const ITEMS: itemDB = {
     10: { name: 'コーヒー', price: 100 }
 };
 
-function getMaxId(items: itemDB): number {
+function getMaxId(items: itemDB): keyof itemDB {
     const keys = Object.keys(ITEMS).map(Number);
     return Math.max(...keys);
 }
