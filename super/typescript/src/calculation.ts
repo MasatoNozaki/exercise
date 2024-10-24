@@ -1,4 +1,4 @@
-import { ITEMS, MAXID } from "../items";
+import { ITEMS } from "../items";
 
 type buyContent = {
     id: keyof typeof ITEMS;
