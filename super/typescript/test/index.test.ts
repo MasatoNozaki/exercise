@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { calcTotalPrice, IndexOutOfRangeError, NegativeNumError } from "..";
 
-describe('合計金額の計算', () => {
+describe('合計金額（税金なし）の計算', () => {
     test('商品を1種類買う', () => {
         expect(calcTotalPrice(
             [
@@ -23,6 +23,15 @@ describe('合計金額の計算', () => {
                 { id: 6, num: 2 }
             ]
         )).toBe(40 + 420 * 2);
+    });
+
+    test('同じ商品のエントリーが2つある', () => {
+        expect(calcTotalPrice(
+            [
+                { id: 2, num: 1 },
+                { id: 2, num: 1 }
+            ]
+        )).toBe(40 + 40);
     });
 
     test('商品を1つも買わない', () => {
