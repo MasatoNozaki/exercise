@@ -1,4 +1,5 @@
 import { getId, ITEMS } from "../items";
+import { TAX } from "./const";
 import { calcTotalPrice } from "./simpleTotalPrice";
 import { type buyContents } from "./types";
 import { extractItem } from "./util";
@@ -18,5 +19,5 @@ export function calcTotalPriceAppleThreeDiscount(buyContents: buyContents): numb
 }
 
 export function calcTotalPriceAppleThreeDiscountWithTax(buyContents: buyContents): number {
-    return calcTotalPriceAppleThreeDiscount(buyContents) * 1.08;
+    return calcTotalPriceAppleThreeDiscount(buyContents) * TAX;
 }

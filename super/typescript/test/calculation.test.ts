@@ -2,8 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { calcTotalPrice, calcTotalPriceWithTax, IndexOutOfRangeError, NegativeNumError } from "../src/simpleTotalPrice";
 import { calcTotalPriceWithTabaccoTaxInclude, calcTotalPriceWithTabaccoTaxIncludeWithTax } from "../src/tabaccoTaxInclude";
 import { calcTotalPriceAppleThreeDiscount, calcTotalPriceAppleThreeDiscountWithTax } from "../src/appleThreeDiscount";
-
-const TAX = 1.08;
+import { TAX } from "../src/const";
 
 describe('合計金額（税金なし）の計算', () => {
     test('商品を1種類買う', () => {
