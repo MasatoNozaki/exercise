@@ -40,12 +40,22 @@ describe('合計金額（税金なし）の計算', () => {
         expect(calcTotalPrice([])).toBe(0);
     });
 
-    test('存在しない商品を買う', () => {
-        expect(() => calcTotalPrice(
-            [
-                { id: 100, num: 1 }
-            ]
-        )).toThrowError(IndexOutOfRangeError);
+    describe('存在しない商品を買う', () => {
+        test('idが大きい', () => {
+            expect(() => calcTotalPrice(
+                [
+                    { id: 100, num: 1 }
+                ]
+            )).toThrowError(IndexOutOfRangeError);
+        });
+
+        test('idが負', () => {
+            expect(() => calcTotalPrice(
+                [
+                    { id: -1, num: 1 }
+                ]
+            )).toThrowError(IndexOutOfRangeError);
+        });
     });
 
     test('負の個数買う', () => {

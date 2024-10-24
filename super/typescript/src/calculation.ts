@@ -8,15 +8,15 @@ type buyContent = {
 export function calcTotalPrice(buyContents: buyContent[]): number {
     let sum = 0;
     for (const buyContent of buyContents) {
-        if (buyContent.id > MAXID) {
-            throw new IndexOutOfRangeError();
-        }
-
         if (buyContent.num < 0) {
             throw new NegativeNumError();
         }
 
-        sum += ITEMS[buyContent.id].price * buyContent.num;
+        const item = ITEMS[buyContent.id];
+        if (item === undefined) {
+            throw new IndexOutOfRangeError();
+        }
+        sum += item.price * buyContent.num;
     }
     return sum;
 }
