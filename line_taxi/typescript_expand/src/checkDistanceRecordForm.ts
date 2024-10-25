@@ -1,6 +1,12 @@
 const SPLIT = '\n';
-export function checkFirstDistance(record: string): boolean {
+
+export function checkDistanceRecordForm(record: string): boolean {
     const distances = record.split(SPLIT);
+
+    return checkFirstDistance(distances) && checkExistance_First_and_LastRecord(distances) && checkEndLine(distances);
+}
+
+function checkFirstDistance(distances: string[]): boolean {
     if (distances[0] === '0.0') {
         return true;
     }
@@ -9,8 +15,7 @@ export function checkFirstDistance(record: string): boolean {
     }
 }
 
-export function checkExistance_First_and_LastRecord(record: string): boolean {
-    const distances = record.split(SPLIT);
+function checkExistance_First_and_LastRecord(distances: string[]): boolean {
     if (distances.length >= 2) {
         return true;
     }
@@ -19,8 +24,7 @@ export function checkExistance_First_and_LastRecord(record: string): boolean {
     }
 }
 
-export function checkEndLine(record: string): boolean {
-    const distances = record.split(SPLIT);
+function checkEndLine(distances: string[]): boolean {
     if (distances[distances.length - 1] === "") {
         return true;
     }
