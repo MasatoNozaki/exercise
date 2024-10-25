@@ -1,13 +1,13 @@
 import { describe, expect, test } from "bun:test";
 import { main } from "..";
 
-describe('1行目は必ず0.0から始まる', () => {
-    test('1行目が0.0', () => {
-        expect(main('0.0\n1.0\n3.0')).toBeTrue();
-    });
+test('正常レコード', () => {
+    expect(main('0.0\n1.0\n3.0\n')).toBeTrue();
+});
 
+describe('異常系', () => {
     test('1行目が0.0でない', () => {
-        expect(main('1.0\n1.0\n3.0')).toBeFalse();
+        expect(main('1.0\n1.0\n3.0\n')).toBeFalse();
     });
 
     test('空のレコード', () => {
@@ -17,14 +17,12 @@ describe('1行目は必ず0.0から始まる', () => {
     test('仕様と異なる区切り文字', () => {
         expect(main('1.0$n1.0\n3.0')).toBeFalse();
     });
-});
-
-describe('初乗レコードと降車レコードの2行が必ず存在', () => {
-    test('初乗レコードと降車レコードの2行が存在', () => {
-        expect(main('0.0\n1.0')).toBeTrue();
-    });
 
     test('1行のみである', () => {
         expect(main('0.0')).toBeFalse();
+    });
+
+    test('末尾に改行がない', () => {
+        expect(main('0.0\n1.0\n3.0')).toBeFalse();
     });
 });

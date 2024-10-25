@@ -18,3 +18,13 @@ export function checkExistance_First_and_LastRecord(record: string): boolean {
         return false;
     }
 }
+
+export function checkEndLine(record: string): boolean {
+    const distances = record.split(SPLIT);
+    if (distances[distances.length - 1] === "") {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
