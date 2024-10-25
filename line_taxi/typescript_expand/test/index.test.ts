@@ -32,4 +32,8 @@ describe('異常系', () => {
         expect(main('0.0\n100.0\n')).toBeFalse();
         expect(main('0.0\n-1.0\n')).toBeFalse();
     });
+
+    test('降車までの総移動距離が0.1以上でない', () => {
+        expect(main('0.0\n0.0\n')).toBeFalse();
+    });
 });

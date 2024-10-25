@@ -17,12 +17,11 @@ export function checkDistanceRecordForm(record: string): boolean {
 
     try {
         const distances = checkDistanceRecordStyle(recordTrimLastLF);
-        return checkFirstDistance(distances) && checkExistance_First_and_LastRecord(distances);
+        return checkFirstDistance(distances) && checkExistance_First_and_LastRecord(distances) && checkTotalDistance(distances);
     } catch (e) {
         if (e instanceof DistanceStyleError) {
             return false;
-        }
-        else {
+        } else {
             throw new Error('unknown error!');
         }
     }
@@ -43,8 +42,7 @@ function checkDistanceRecordStyle(record: string): distanceRecord[] {
 function checkFirstDistance(distances: distanceRecord[]): boolean {
     if (distances[0] === '0.0') {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -52,8 +50,7 @@ function checkFirstDistance(distances: distanceRecord[]): boolean {
 function checkExistance_First_and_LastRecord(distances: distanceRecord[]): boolean {
     if (distances.length >= 2) {
         return true;
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -62,8 +59,20 @@ function checkEndLine(record: string): boolean {
     const lines = record.split(SPLIT);
     if (lines[lines.length - 1] === "") {
         return true;
+    } else {
+        return false;
     }
-    else {
+}
+
+function checkTotalDistance(distances: distanceRecord[]): boolean {
+    let sum = 0;
+    for (const distance of distances) {
+        sum += Number(distance);
+    }
+
+    if (sum >= 0.1) {
+        return true;
+    } else {
         return false;
     }
 }
