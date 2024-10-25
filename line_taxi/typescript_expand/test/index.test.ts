@@ -18,3 +18,13 @@ describe('1行目は必ず0.0から始まる', () => {
         expect(main('1.0$n1.0\n3.0')).toBeFalse();
     });
 });
+
+describe('初乗レコードと降車レコードの2行が必ず存在', () => {
+    test('初乗レコードと降車レコードの2行が存在', () => {
+        expect(main('0.0\n1.0')).toBeTrue();
+    });
+
+    test('1行のみである', () => {
+        expect(main('0.0')).toBeFalse();
+    });
+});
