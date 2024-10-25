@@ -1,6 +1,6 @@
 import { getId } from "../items";
 import { TAX } from "./const";
-import { calcTotalPrice } from "./simpleTotalPrice";
+import { calcTotalPrice } from "./totalPrice";
 import { type buyContents } from "./types";
 import { extractItem } from "./util";
 

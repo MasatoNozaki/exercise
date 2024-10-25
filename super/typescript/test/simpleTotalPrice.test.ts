@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { calcTotalPrice, calcTotalPriceWithTax, IndexOutOfRangeError, NegativeNumError } from "../src/simpleTotalPrice";
+import { calcTotalPrice, calcTotalPriceWithTax, IndexOutOfRangeError, NegativeNumError } from "../src/totalPrice";
 import { TAX } from "../src/const";
 
 describe('合計金額（税金なし）の計算', () => {
