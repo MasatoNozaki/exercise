@@ -1,7 +1,7 @@
-const SPLIT = '\n';
+export const SPLIT = '\n';
 
 declare const distanceNominality: unique symbol;
-type distanceRecord = string & { [distanceNominality]: never; };
+export type distanceRecord = string & { [distanceNominality]: never; };
 
 const isDistanceRecord = (line: string): line is distanceRecord => {
     return /^(0|[1-9][0-9]?)\.[0-9]$/.test(line);

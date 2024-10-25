@@ -1,10 +1,10 @@
-import { checkDistanceRecordForm, DistanceRecordFormError } from "./src/checkDistanceRecordForm";
+import { calculateDistanceFee } from "./src/distanceFee";
+import { getDistanceRecords } from "./src/getDistanceRecords";
 
 export function main(record: string): number {
-    if (!checkDistanceRecordForm(record)) {
-        throw new DistanceRecordFormError();
-    }
-    return 400;
+    const distanceRecords = getDistanceRecords(record);
+
+    return calculateDistanceFee(distanceRecords);
 }
 
 // console.log(main(''));
