@@ -77,6 +77,12 @@ function checkTotalDistance(distances: distanceRecord[]): boolean {
     }
 }
 
+export class DistanceRecordFormError extends Error {
+    constructor() {
+        super('The given distane record is invalid!');
+    }
+}
+
 class DistanceStyleError extends Error {
     constructor(errorStyle: string) {
         super(`Distance style error! min: 0.0, max: 99.9\nError style is ${errorStyle}`);
