@@ -2,6 +2,10 @@ import type { distanceRecord } from "./checkDistanceRecordForm";
 
 /**
  * distanceはm単位
+ * 
+ * 1400mから40円の加算が開始し、10200mで40円の加算を行ったあと、短距離区間は終了（問題文に「1000+400*0を超え」とあるため）
+ * 
+ * 10550mから40円の加算が開始
  * @param distanceRecords 距離レコードの文字列配列
  * @returns 距離による総運賃
  */
@@ -15,7 +19,7 @@ export function calculateDistanceFee(distanceRecords: distanceRecord[]): number 
     }
 
     // 10km未満
-    while (totalDistance >= 0) {
+    while (totalDistance >= 400) {
         totalFee += 40;
         totalDistance -= 400;
     }

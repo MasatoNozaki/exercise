@@ -8,24 +8,24 @@ describe('正常レコード', () => {
         expect(main('0.0\n1.0\n3.0\n')).toBe(400);
     });
 
-    test('1kmを超えると40円加算', () => {
+    test('1kmを超えても40円は加算されない', () => {
         const data = fs.readFileSync('test/data/oneKiloMeterTest.txt', 'utf-8');
-        expect(main(data)).toBe(440);
+        expect(main(data)).toBe(400);
     });
 
-    test('1.3kmでは加算は1回のみ', () => {
+    test('1.3kmでも加算はされない', () => {
         const data = fs.readFileSync('test/data/one-threeKiloMeterTest.txt', 'utf-8');
-        expect(main(data)).toBe(440);
+        expect(main(data)).toBe(400);
     });
 
-    test('1.4kmでは加算は2回', () => {
+    test('1.4kmでは加算は1回', () => {
         const data = fs.readFileSync('test/data/one-fourKiloMeterTest.txt', 'utf-8');
-        expect(main(data)).toBe(480);
+        expect(main(data)).toBe(440);
     });
 
     test('10.2kmまで400mごとに加算される', () => {
         const data = fs.readFileSync('test/data/maxShortDistanceSection.txt', 'utf-8');
-        expect(main(data)).toBe(400 + 960);
+        expect(main(data)).toBe(400 + 920);
     });
 });
 
