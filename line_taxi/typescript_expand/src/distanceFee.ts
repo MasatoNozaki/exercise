@@ -1,5 +1,10 @@
 import type { distanceRecord } from "./checkDistanceRecordForm";
 
+const FIRST_RIDE_FEE = 400;
+const FIRST_RIDE_DISTANCE = 1000;
+const SHORT_DISTANCE_SECTION = 400;
+const DISTANCE_FEE = 40;
+
 /**
  * distanceはm単位
  * 
@@ -14,14 +19,14 @@ export function calculateDistanceFee(distanceRecords: distanceRecord[]): number 
     let totalDistance = getTotalDistance(distanceRecords);
     // 初乗運賃
     if (totalDistance > 0) {
-        totalFee += 400;
-        totalDistance -= 1000;
+        totalFee += FIRST_RIDE_FEE;
+        totalDistance -= FIRST_RIDE_DISTANCE;
     }
 
     // 10km未満
-    while (totalDistance >= 400) {
-        totalFee += 40;
-        totalDistance -= 400;
+    while (totalDistance >= SHORT_DISTANCE_SECTION) {
+        totalFee += DISTANCE_FEE;
+        totalDistance -= SHORT_DISTANCE_SECTION;
     }
 
     return totalFee;
