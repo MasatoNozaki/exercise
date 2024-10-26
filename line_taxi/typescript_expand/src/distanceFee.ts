@@ -3,6 +3,8 @@ import type { distanceRecord } from "./checkDistanceRecordForm";
 const FIRST_RIDE_FEE = 400;
 const FIRST_RIDE_DISTANCE = 1000;
 const SHORT_DISTANCE_SECTION = 400;
+const MAX_SHORT_DISTANCE = 10200 - FIRST_RIDE_DISTANCE;
+const LONG_DISTANCE_SECTION = 350;
 const DISTANCE_FEE = 40;
 
 /**
@@ -24,9 +26,17 @@ export function calculateDistanceFee(distanceRecords: distanceRecord[]): number 
     }
 
     // 10km未満
-    while (totalDistance >= SHORT_DISTANCE_SECTION) {
+    let whileShortDistance = MAX_SHORT_DISTANCE;
+    while (totalDistance >= SHORT_DISTANCE_SECTION && whileShortDistance > 0) {
         totalFee += DISTANCE_FEE;
         totalDistance -= SHORT_DISTANCE_SECTION;
+        whileShortDistance -= SHORT_DISTANCE_SECTION;
+    }
+
+    // 10km以降
+    while (totalDistance >= LONG_DISTANCE_SECTION) {
+        totalFee += DISTANCE_FEE;
+        totalDistance -= LONG_DISTANCE_SECTION;
     }
 
     return totalFee;

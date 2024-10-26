@@ -27,6 +27,16 @@ describe('正常レコード', () => {
         const data = fs.readFileSync('test/data/maxShortDistanceSection.txt', 'utf-8');
         expect(main(data)).toBe(400 + 920);
     });
+
+    test('10.55kmから350mごとに加算される', () => {
+        const data = fs.readFileSync('test/data/minLongDistanceSection.txt', 'utf-8');
+        expect(main(data)).toBe(400 + 920 + 40);
+    });
+
+    test('10.90kmで2回加算される', () => {
+        const data = fs.readFileSync('test/data/ten-ninetyKiloMeter.txt', 'utf-8');
+        expect(main(data)).toBe(400 + 920 + 40 + 40);
+    });
 });
 
 describe('異常系', () => {
