@@ -12,6 +12,21 @@ describe('正常レコード', () => {
         const data = fs.readFileSync('test/data/oneKiloMeterTest.txt', 'utf-8');
         expect(main(data)).toBe(440);
     });
+
+    test('1.3kmでは加算は1回のみ', () => {
+        const data = fs.readFileSync('test/data/one-threeKiloMeterTest.txt', 'utf-8');
+        expect(main(data)).toBe(440);
+    });
+
+    test('1.4kmでは加算は2回', () => {
+        const data = fs.readFileSync('test/data/one-fourKiloMeterTest.txt', 'utf-8');
+        expect(main(data)).toBe(480);
+    });
+
+    test('10.2kmまで400mごとに加算される', () => {
+        const data = fs.readFileSync('test/data/maxShortDistanceSection.txt', 'utf-8');
+        expect(main(data)).toBe(400 + 960);
+    });
 });
 
 describe('異常系', () => {
